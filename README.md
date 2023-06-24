@@ -27,3 +27,10 @@ jenkins で Laravel資材をデプロイ(資材最新化、migration、seeder、
 1. migration、seeder実行（毎回実行ではなく、必要な場合だけ実行を目指す:最新化したgitの資材のdiffなど？）
 1. npm・composer installやビルド
 1. 起動確認 (topページ への通信200だけ一旦)
+
+# お試し laravel
+
+- composer require laravel/breeze --dev
+- php artisan breeze:install vue --typescript
+
+DBとnpmとcomposerが必要になる感じ
