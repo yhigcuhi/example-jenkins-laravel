@@ -13,6 +13,8 @@ jenkins で Laravel資材をデプロイ(資材最新化、migration、seeder、
     ┗ DBマウント先
 /laravel
     ┗ Laravel資材と動作確認のマウント先
+/jenkins
+    ┗ jenkins マウント先
 ## Docker構成
 
 - app(phpのみ)
@@ -34,3 +36,29 @@ jenkins で Laravel資材をデプロイ(資材最新化、migration、seeder、
 - php artisan breeze:install vue --typescript
 
 DBとnpmとcomposerが必要になる感じ
+
+# Jenkins 構築
+
+1. jenkinsをdokcer-composeでコンテナ構築
+1. localhost:8081 アクセス 
+1. /jenkins/secrets/initialAdminPasswordにあるパスワード文字でログイン
+1. 推奨jenkinsプラグイン インストール(gradleなどインストールされるので時間かかる)
+1. ID:admin,password:zaq12wsxのユーザー作成
+1. GitHub SSH接続のために jenkinsのコンテナ上のssh作成
+
+## Docker コンテナでの ssh作成 for jenkins
+[参考](https://takerpg.hatenablog.jp/entry/20140914/1410692046)
+
+> ssh-keygen -t rsa -C "your.address@hoge.com"
+
+1. ↑ のコマンドで 鍵 作成
+1. 作成された .ssh/id_rsa.pubをgithubに登録
+1. ssh -T git@github.com で一回接続を登録しておく
+1. ↑ で jenkinsから 接続できるようになった
+
+
+## JOBの作成
+
+1. [参考から GitHubからDockerの内容を持ってくるだあけの JOB作成](https://blog.e2info.co.jp/2017/05/10/laravel_and_jenkins/)
+1. ビルド実行 → workspaceに git cloneされた
+1. TODO:ビルド laravel (pipeline?)
